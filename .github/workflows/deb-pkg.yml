@@ -17,7 +17,7 @@ jobs:
         run: |
           sudo sed -i '/deb-src/s/^# //' /etc/apt/sources.list
           sudo apt-get update
-          sudo apt-get -y install cmake fakeroot
+          sudo apt-get -y install cmake fakeroot libxml2-utils
           sudo apt-get build-dep doxygen
 
       - name: Building doxygen
