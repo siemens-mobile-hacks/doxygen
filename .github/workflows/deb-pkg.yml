@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  doxygen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          submodules: true
+
+      - name: Installing dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install cmake fakeroot
+          sudo apt-get build-dep doxygen
+
+      - name: Building doxygen
+        run: |
+          fakeroot debian/rules binary
+
+      - uses: softprops/action-gh-release@v1
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          files: ../*.deb
