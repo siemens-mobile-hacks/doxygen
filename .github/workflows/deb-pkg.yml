@@ -29,3 +29,6 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: true
           files: ../*.deb
+
+permissions:
+  contents: write
